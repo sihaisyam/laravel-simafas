@@ -37,6 +37,9 @@
                                         <span>Email</span>
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-center">
+                                        <span>Roles</span>
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-center">
                                         <span>Action</span>
                                     </th>
                                 </tr>
@@ -54,6 +57,9 @@
                                         </td>
                                         <td class="px-6 py-2 text-center">
                                             {{ $user->email }}
+                                        </td>
+                                        <td class="px-6 py-2 text-center">
+                                            {{ $user->roles }}
                                         </td>
                                         <td class="px-6 py-2 text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');"
