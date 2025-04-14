@@ -24,7 +24,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $roles = "test";
+        $categories = [];
+        return view('users.create', compact('roles', 'categories'));
     }
 
     /**
@@ -32,11 +34,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'nullable|string',
             'email' => 'required|string|unique:users',
             'password' => 'required|string',
-            'password_confirmation' => 'required|same:password'
+            'password_confirmations' => 'required|same:password'
         ]);
 
         try {
@@ -45,7 +48,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' =>  Hash::make($request->password),
             ]);
-
+            // dd($user);
             $user->save();
             return redirect()->route('users.index')
             ->with('success', 'User '.$user->name.' has been added successfully!');
