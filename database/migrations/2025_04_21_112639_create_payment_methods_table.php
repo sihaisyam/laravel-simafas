@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('facilities', function (Blueprint $table) {
+        Schema::create('payment_methods', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->integer('kapasitas');
-            $table->string('lokasi');
-            $table->decimal('harga_sewa', 10, 2);
-            $table->boolean('status_ketersediaan')->default(true);
+            $table->string('account_number')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('facilities');
+        Schema::dropIfExists('payment_methods');
     }
 };
