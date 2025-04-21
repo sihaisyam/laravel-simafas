@@ -51,6 +51,7 @@
                         {{ __('Facilities') }}
                     </x-nav-link>
                 </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
