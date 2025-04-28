@@ -37,6 +37,11 @@
                         {{ __('Facilities') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('rental-transactions.index')" :active="request()->routeIs('rental-transactions.index')">
+                        {{ __('Rental') }}
+                    </x-nav-link>
+                </div>
                 @elseif(Auth::user()->roles == "user")
                 <!-- Navigation Links User-->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

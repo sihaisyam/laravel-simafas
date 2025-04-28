@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rentals', function (Blueprint $table) {
+        Schema::create('rental_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('phone');
+            $table->decimal('total_biaya', 15, 2); // Assuming 15 digits with 2 decimal places
+            $table->enum('status_pembayaran', ['PENDING', 'PAID', 'CANCELLED'])->default('PENDING');
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rentals');
+        Schema::dropIfExists('rental_transactions');
     }
 };

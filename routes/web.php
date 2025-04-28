@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\RentalTransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('facilities', FacilityController::class);
     Route::resource('payment-methods', PaymentMethodController::class);
+    Route::resource('rental-transactions', RentalTransactionController::class);
 });
 
 require __DIR__.'/auth.php';
