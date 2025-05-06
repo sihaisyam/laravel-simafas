@@ -16,6 +16,8 @@ class RentalDetail extends Model
         'tanggal_mulai',
         'tanggal_selesai',
         'catatan_tambahan',
+        'harga_per_jam',
+        'sub_total',
     ];
 
     protected $casts = [

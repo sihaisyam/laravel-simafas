@@ -78,9 +78,9 @@
                                         </td>
                                         <td class="px-6 py-2 text-center">
                                             <div class="flex justify-center space-x-2">
-                                                <a href="{{ route('rental-transactions.show', $transaction->id) }}"
+                                                <a href="{{ route('rental-transactions.print', $transaction->id) }}"
                                                     class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900">
-                                                    VIEW
+                                                    PRINT
                                                 </a>
                                                 <a href="{{ route('rental-transactions.edit', $transaction->id) }}"
                                                     class="focus:outline-none text-gray-50 bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-xs px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">

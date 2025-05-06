@@ -7,6 +7,8 @@ use App\Models\RentalDetail;
 use App\Models\RentalTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class RentalTransactionController extends Controller
 {
@@ -47,6 +49,8 @@ class RentalTransactionController extends Controller
             'facilities.*.durasi_jam' => 'required|integer|min:1',
             'facilities.*.tanggal_mulai' => 'required|date',
             'facilities.*.tanggal_selesai' => 'required|date',
+            'facilities.*.harga_per_jam' => 'required|numeric|min:0',
+            'facilities.*.sub_total' => 'required|numeric|min:0',
             'facilities.*.catatan_tambahan' => 'nullable|string|max:500'
         ]);
 
@@ -59,6 +63,7 @@ class RentalTransactionController extends Controller
                 'name' => $validated['name'],
                 'phone' => $validated['phone'],
                 'total_biaya' => $validated['total_biaya'],
+                'kasir_id' => Auth::user()->id,
                 'status_pembayaran' => 'PENDING'
             ]);
 
@@ -73,7 +78,8 @@ class RentalTransactionController extends Controller
                     'tanggal_mulai' => $facilityData['tanggal_mulai'],
                     'tanggal_selesai' => $facilityData['tanggal_selesai'],
                     'catatan_tambahan' => $facilityData['catatan_tambahan'] ?? null,
-                    // 'harga_per_jam' => $facility->price_per_hour // Jika perlu menyimpan harga saat itu
+                    'harga_per_jam' =>$facilityData['harga_per_jam'], // Jika perlu menyimpan harga saat itu
+                    'sub_total' => $facilityData['sub_total'],
                 ]);
             }
             // Commit transaksi jika semua sukses
@@ -202,5 +208,12 @@ class RentalTransactionController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
+    }
+
+    public function print(Request $request, RentalTransaction $rentalTransaction)
+    {
+        $pdf = PDF::loadview('rental-transactions.print-pdf',
+        ['data'=> $rentalTransaction]);
+    	return $pdf->stream('print-pdf');
     }
 }

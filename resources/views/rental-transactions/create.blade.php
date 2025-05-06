@@ -100,7 +100,7 @@
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Start</th>
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">End</th>
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Notes</th>
-                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Subtotal</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Sub_total</th>
                                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
                                         </tr>
                                     </thead>
@@ -127,7 +127,11 @@
                                                     <span x-text="facility.catatan_tambahan || '-'"></span>
                                                     <input type="hidden" x-bind:name="`facilities[${index}][catatan_tambahan]`" x-model="facility.catatan_tambahan">
                                                 </td>
-                                                <td class="px-6 py-4 whitespace-nowrap" x-text="'Rp' + formatNumber(facility.subtotal)"></td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                <span x-text="'Rp' + formatNumber(facility.sub_total)"></span>
+                                                    <input type="hidden" x-bind:name="`facilities[${index}][harga_per_jam]`" x-model="facility.harga_per_jam">
+                                                    <input type="hidden" x-bind:name="`facilities[${index}][sub_total]`" x-model="facility.sub_total">
+                                                </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <button type="button" @click="removeFacility(index)" 
                                                         class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
@@ -187,11 +191,12 @@
                     start_date: '',
                     end_date: '',
                     catatan_tambahan: '',
-                    subtotal: 0
+                    harga_per_jam: 0,
+                    sub_total: 0
                 },
                 
                 get totalCost() {
-                    return this.formData.facilities.reduce((sum, facility) => sum + facility.subtotal, 0);
+                    return this.formData.facilities.reduce((sum, facility) => sum + facility.sub_total, 0);
                 },
                 
                 getFacilityName(id) {
@@ -219,7 +224,8 @@
                         start_date: this.newFacility.start_date,
                         end_date: this.newFacility.end_date,
                         catatan_tambahan: this.newFacility.catatan_tambahan,
-                        subtotal: price * parseInt(this.newFacility.duration)
+                        harga_per_jam: +price,
+                        sub_total: price * parseInt(this.newFacility.duration)
                     });
                     
                     // Reset new facility form
@@ -229,7 +235,8 @@
                         start_date: '',
                         end_date: '',
                         catatan_tambahan: '',
-                        subtotal: 0
+                        harga_per_jam: 0,
+                        sub_total: 0
                     };
                 },
                 

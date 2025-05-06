@@ -20,10 +20,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('users/export-xls',[ UserController::class, 'exportExcel'])->name('users.export-xls');
     Route::resource('users', UserController::class);
+
     Route::resource('categories', CategoryController::class);
+
+    Route::get('facilities/laporan-pdf',[ FacilityController::class, 'reportPdf'])->name('facilities.report-pdf');
     Route::resource('facilities', FacilityController::class);
+
     Route::resource('payment-methods', PaymentMethodController::class);
+    
+    Route::get('rental-transactions/{rentalTransaction}/print', [RentalTransactionController::class, 'print'])->name('rental-transactions.print');
     Route::resource('rental-transactions', RentalTransactionController::class);
 });
 

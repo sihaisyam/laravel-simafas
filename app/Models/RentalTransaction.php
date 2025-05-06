@@ -14,6 +14,7 @@ class RentalTransaction extends Model
         'phone',
         'total_biaya',
         'status_pembayaran',
+        'kasir_id',
     ];
 
     protected $casts = [
@@ -39,5 +40,10 @@ class RentalTransaction extends Model
             self::STATUS_PAID,
             self::STATUS_CANCELLED,
         ];
+    }
+
+    public function kasir()
+    {
+        return $this->belongsTo(User::class, 'kasir_id', 'id');
     }
 }
