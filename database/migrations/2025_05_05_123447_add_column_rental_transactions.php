@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rentals', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('rental_transactions', function (Blueprint $table) {
+            $table->bigInteger('kasir_id')->unsigned();
+            $table->foreign('kasir_id')->references('id')->on('users'); 
         });
     }
 
@@ -22,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rentals');
+        Schema::table('rental_transactions', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Facility;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use PDF;
 
 class FacilityController extends Controller
 {
@@ -129,5 +130,12 @@ class FacilityController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }
+    }
+
+    public function reportPdf(){
+        $data = Facility::all();
+        $pdf = PDF::loadview('facilities.report-pdf',
+        ['data'=> $data]);
+    	return $pdf->stream('laporan-fasilitas-pdf');
     }
 }

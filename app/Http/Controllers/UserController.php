@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -115,5 +117,10 @@ class UserController extends Controller
         } else {
             return back()->with('error', 'User not found!');
         }
+    }
+
+    public function exportExcel() 
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 }
