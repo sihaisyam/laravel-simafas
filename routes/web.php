@@ -7,6 +7,7 @@ use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\RentalTransactionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,6 +37,12 @@ Route::middleware('auth')->group(function () {
     
     Route::get('rental-transactions/{rentalTransaction}/print', [RentalTransactionController::class, 'print'])->name('rental-transactions.print');
     Route::resource('rental-transactions', RentalTransactionController::class);
+
+
+    Route::get('reports',[ReportController::class, 'index'])->name('reports');
+    Route::get('reports/xls',[ReportController::class, 'xls'])->name('reports.xls');
+    Route::get('reports/pdf',[ReportController::class, 'pdf'])->name('reports.pdf');
+
 });
 
 require __DIR__.'/auth.php';
